@@ -18,24 +18,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var headLabel: UILabel!
     
     var dataAPIClient = DataAPIClient()
+    let group = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+            dataAPIClient.getData(apiUrl: .name) { (data, error) in
+                
+                guard let data = data else { return }
+                self.nameLabel.text = data
+                
+            }
+            
+            dataAPIClient.getData(apiUrl: .address) { (data, error) in
         
-        dataAPIClient.getData(apiUrl: .name) { (data, error) in
-            guard let data = data else { return }
-            self.nameLabel.text = data
-        }
-        
-        dataAPIClient.getData(apiUrl: .address) { (data, error) in
-            guard let data = data else { return }
-            self.addressLabel.text = data
-        }
-        
-        dataAPIClient.getData(apiUrl: .head) { (data, error) in
-            guard let data = data else { return }
-            self.headLabel.text = data
-        }
+                guard let data = data else { return }
+                self.addressLabel.text = data
+
+            }
+            
+            dataAPIClient.getData(apiUrl: .head) { (data, error) in
+                
+                guard let data = data else { return }
+                self.headLabel.text = data
+
+            }
     }
     
     override func didReceiveMemoryWarning() {

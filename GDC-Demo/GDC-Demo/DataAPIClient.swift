@@ -17,6 +17,8 @@ enum dataApiUrl: String {
 
 class DataAPIClient {
     
+    let semaphore = DispatchSemaphore(value: 1)
+    
     let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
     
     typealias DataCompetionHandler = (String?, Error?) -> Void
@@ -33,8 +35,6 @@ class DataAPIClient {
         request.httpMethod = "GET"
         
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            
-            DispatchQueue.main.async {
                 
                 guard error == nil else {
                     completion(nil, DataError.requestFailed)
@@ -45,11 +45,13 @@ class DataAPIClient {
                     completion(nil, DataError.requestFailed)
                     return
                 }
-                print(httpResponse)
+
+            DispatchQueue.main.async {
                 
                 guard let data = String(data: data!, encoding: .utf8 ) else { return }
                 print(data)
                 completion(data, nil)
+
             }
         })
         dataTask.resume()

@@ -35,24 +35,23 @@ class DataAPIClient {
         request.httpMethod = "GET"
         
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-                
+            
                 guard error == nil else {
                     completion(nil, DataError.requestFailed)
                     return
                 }
-
+                
                 guard let httpResponse = response as? HTTPURLResponse else {
                     completion(nil, DataError.requestFailed)
                     return
                 }
-
-            DispatchQueue.main.async {
-                
-                guard let data = String(data: data!, encoding: .utf8 ) else { return }
-                print(data)
-                completion(data, nil)
-
-            }
+            
+                DispatchQueue.main.async {
+                    
+                    guard let data = String(data: data!, encoding: .utf8 ) else { return }
+                    print(data)
+                    completion(data, nil)
+                }
         })
         dataTask.resume()
     }

@@ -22,29 +22,33 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-            dataAPIClient.getData(apiUrl: .name) { (data, error) in
-                
-                guard let data = data else { return }
-                self.nameLabel.text = data
-                
-            }
-            
-            dataAPIClient.getData(apiUrl: .address) { (data, error) in
         
-                guard let data = data else { return }
-                self.addressLabel.text = data
-
-            }
+        dataAPIClient.getData(apiUrl: .name) { (data, error) in
+            self.group.enter()
             
-            dataAPIClient.getData(apiUrl: .head) { (data, error) in
-                
-                guard let data = data else { return }
-                self.headLabel.text = data
-
-            }
+            guard let dataName = data else { return }
+            self.nameLabel.text = dataName
+            
+            self.group.wait()
+        }
+        
+        dataAPIClient.getData(apiUrl: .address) { (data, error) in
+            self.group.enter()
+            
+            guard let dataAddress = data else { return }
+            self.addressLabel.text = dataAddress
+            self.group.wait()
+        }
+        
+        dataAPIClient.getData(apiUrl: .head) { (data, error) in
+            
+            self.group.enter()
+            guard let dataHead = data else { return }
+            self.headLabel.text = dataHead
+            self.group.wait()
+        }
+        
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

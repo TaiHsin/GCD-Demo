@@ -25,7 +25,6 @@ class DataAPIClient {
     
     func getData(apiUrl: dataApiUrl, completionHandler completion: @escaping DataCompetionHandler) {
         
-        
         guard let url =  URL(string: "\(apiUrl.rawValue)") else {
             completion(nil, DataError.invaliedUrl)
             return

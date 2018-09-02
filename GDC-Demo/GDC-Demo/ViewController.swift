@@ -28,18 +28,18 @@ class ViewController: UIViewController {
         
         dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .name) { (data, error) in
-
+            
             guard let data = data else { return }
-                        print(data)
+            print(data)
             self.nameData = data
             self.dispatchGroup.leave()
         }
         
         dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .address) { (data, error) in
-
+            
             guard let data = data else { return }
-                                    print(data)
+            print(data)
             self.addressData = data
             self.dispatchGroup.leave()
         }
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
             self.headLabel.text = self.headData
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

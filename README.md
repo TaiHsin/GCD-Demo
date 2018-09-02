@@ -25,8 +25,8 @@ In order to display view and data clearly, we add `run()` method to delay the da
 In the three getData() method that called in viewDidLoad(), we use `wait()` to request the semaphore’s resource and also use `signal()` to release the resource.
 
 Some important defination of semaphore from web [A Quick Look at Semaphores in Swift](https://medium.com/swiftly-swift/a-quick-look-at-semaphores-6b7b85233ddb): 
->
-**The Semaphore is composed by:**   
+
+>**The Semaphore is composed by:**   
 *A counter that let the Semaphore know how many threads can use its resource(s).   
 A FIFO queue for tracking the threads waiting for the resource.*  
 **Resource Request: `wait()`** 	  
@@ -80,7 +80,8 @@ Here we called `run()` method in getData closure with one second delay to make U
 
 In `getData()`, after get data the data will store to label.text and it's view will display to screen with one second delay.
 
---
+---
+
 * Reference:      
 [A Quick Look at Semaphores in Swift](https://medium.com/swiftly-swift/a-quick-look-at-semaphores-6b7b85233ddb)   
 [iOS Swift GCD Chinese](https://juejin.im/post/5acaea17f265da239a601a01)    

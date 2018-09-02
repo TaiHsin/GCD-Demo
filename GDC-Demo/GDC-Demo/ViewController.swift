@@ -23,44 +23,35 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 0 ... 50 {
-
-        dataAPIClient.getData(apiUrl: .name) { (data, error) in
-            
-            self.semaphore.wait()
-            guard let data = data else { return }
-            
-            self.semaphore.signal()
-            DispatchQueue.main.async {
-                print(data)
-                self.nameLabel.text = data
+            DispatchQueue.global().async {
+                
+                self.semaphore.wait()
+                self.dataAPIClient.getData(apiUrl: .name) { (data, error) in
+                    guard let data = data else { return }
+                    print(data)
+                    self.nameLabel.text = data
+                    
+                    self.semaphore.signal()
+                }
+                
+                self.semaphore.wait()
+                self.dataAPIClient.getData(apiUrl: .address) { (data, error) in
+                    guard let data = data else { return }
+                    print(data)
+                    self.addressLabel.text = data
+                    
+                    self.semaphore.signal()
+                }
+                
+                self.semaphore.wait()
+                self.dataAPIClient.getData(apiUrl: .head) { (data, error) in
+                    guard let data = data else { return }
+                    print(data)
+                    self.headLabel.text = data
+                    
+                    self.semaphore.signal()
+                }
             }
-        }
-        
-        dataAPIClient.getData(apiUrl: .address) { (data, error) in
-            self.semaphore.wait()
-            guard let data = data else { return }
-            self.semaphore.signal()
-            
-            DispatchQueue.main.async {
-                print(data)
-                self.addressLabel.text = data
-            }
-            
-        }
-        
-        dataAPIClient.getData(apiUrl: .head) { (data, error) in
-            self.semaphore.wait()
-            guard let data = data else { return }
-            
-            self.semaphore.signal()
-            DispatchQueue.main.async {
-                print(data)
-                self.headLabel.text = data
-            }
-        }
-            
-        }
     }
     
     override func didReceiveMemoryWarning() {

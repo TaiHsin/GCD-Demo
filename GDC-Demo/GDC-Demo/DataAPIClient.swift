@@ -19,6 +19,8 @@ class DataAPIClient {
     
     let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
     
+    let semaphore = DispatchSemaphore(value: 1)
+    
     typealias DataCompetionHandler = (String?, Error?) -> Void
     
     func getData(apiUrl: dataApiUrl, completionHandler completion: @escaping DataCompetionHandler) {
@@ -34,8 +36,7 @@ class DataAPIClient {
         
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
-//            DispatchQueue.main.async {
-            
+            DispatchQueue.main.async {
                 guard error == nil else {
                     completion(nil, DataError.requestFailed)
                     return
@@ -49,9 +50,8 @@ class DataAPIClient {
                 guard let data = String(data: data!, encoding: .utf8 ) else {
                     return
                 }
-            
                 completion(data, nil)
-//            }
+            }
         })
         dataTask.resume()
     }

@@ -22,38 +22,49 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideView()
         
-            DispatchQueue.global().async {
-                
-                self.semaphore.wait()
-                self.dataAPIClient.getData(apiUrl: .name) { (data, error) in
+        DispatchQueue.global().async {
+            self.semaphore.wait()
+            self.dataAPIClient.getData(apiUrl: .name) { (data, error) in
+                self.run(after: 1, completion: {
                     guard let data = data else { return }
                     print(data)
                     self.nameLabel.text = data
                     self.nameView.isHidden = false
                     self.semaphore.signal()
-                }
-                
-                self.semaphore.wait()
-                self.dataAPIClient.getData(apiUrl: .address) { (data, error) in
+                })
+            }
+            
+            self.semaphore.wait()
+            self.dataAPIClient.getData(apiUrl: .address) { (data, error) in
+                self.run(after: 1, completion: {
                     guard let data = data else { return }
                     print(data)
                     self.addressLabel.text = data
                     self.addressView.isHidden = false
                     self.semaphore.signal()
-                }
-                
-                self.semaphore.wait()
-                self.dataAPIClient.getData(apiUrl: .head) { (data, error) in
+                })
+            }
+            
+            self.semaphore.wait()
+            self.dataAPIClient.getData(apiUrl: .head) { (data, error) in
+                self.run(after: 1, completion: {
                     guard let data = data else { return }
                     print(data)
                     self.headLabel.text = data
                     self.headView.isHidden = false
                     self.semaphore.signal()
-                }
+                })
             }
+        }
+    }
+    
+    func run(after seconds: Int, completion: @escaping () -> Void) {
+        let deadline = DispatchTime.now() + .seconds(seconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
     }
     
     func hideView() {

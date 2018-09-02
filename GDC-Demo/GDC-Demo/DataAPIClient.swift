@@ -47,9 +47,7 @@ class DataAPIClient {
                 }
             
                 DispatchQueue.main.async {
-                    
                     guard let data = String(data: data!, encoding: .utf8 ) else { return }
-                    print(data)
                     completion(data, nil)
                 }
         })

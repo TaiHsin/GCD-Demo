@@ -17,38 +17,49 @@ class ViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var headLabel: UILabel!
     
+    var nameData = ""
+    var addressData = ""
+    var headData = ""
     var dataAPIClient = DataAPIClient()
-    let group = DispatchGroup()
+    let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .name) { (data, error) in
-            self.group.enter()
-            
-            guard let dataName = data else { return }
-            self.nameLabel.text = dataName
-            
-            self.group.wait()
+
+            guard let data = data else { return }
+                        print(data)
+            self.nameData = data
+            self.dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .address) { (data, error) in
-            self.group.enter()
-            
-            guard let dataAddress = data else { return }
-            self.addressLabel.text = dataAddress
-            self.group.wait()
+
+            guard let data = data else { return }
+                                    print(data)
+            self.addressData = data
+            self.dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .head) { (data, error) in
             
-            self.group.enter()
-            guard let dataHead = data else { return }
-            self.headLabel.text = dataHead
-            self.group.wait()
+            guard let data = data else { return }
+            print(data)
+            self.headData = data
+            self.dispatchGroup.leave()
         }
         
+        dispatchGroup.notify(queue: .main) {
+            self.nameLabel.text = self.nameData
+            self.addressLabel.text = self.addressData
+            self.headLabel.text = self.headData
+        }
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

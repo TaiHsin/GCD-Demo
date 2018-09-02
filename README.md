@@ -58,5 +58,6 @@ In notify closure we simply just show all three view on screen.
 
 * Reference: 	   
 [(Youtube) DispatchGroup: Waiting for Data | Swift 4, Xcode 9](https://www.youtube.com/watch?v=lOI0aUkeuLw)     
-[A deep dive into Grand Central Dispatch in Swift](https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift)	
-[iOS Swift GCD 開發教程](https://juejin.im/post/5acaea17f265da239a601a01)
+[iOS Swift GCD 開發教程](https://juejin.im/post/5acaea17f265da239a601a01)    
+[A deep dive into Grand Central Dispatch in Swift](https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift)
+

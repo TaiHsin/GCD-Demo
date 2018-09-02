@@ -5,7 +5,8 @@ Grand Central Dispatch (GCD) group and semaphore practice
 * Group	  
 * Semaphore
 
---
+---
+
 
 ## Introduction
 
@@ -178,7 +179,7 @@ In `getData()`, after get data the data will store to label.text and it's view w
 
 ---
 
-* Reference: 	
+* Reference:    	 	 	 	  	 		   		
 [(Youtube) DispatchGroup: Waiting for Data | Swift 4, Xcode 9](https://www.youtube.com/watch?v=lOI0aUkeuLw)  
 [A Quick Look at Semaphores in Swift](https://medium.com/swiftly-swift/a-quick-look-at-semaphores-6b7b85233ddb)     
 [A deep dive into Grand Central Dispatch in Swift](https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift)	

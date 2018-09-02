@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideView()
+        
             DispatchQueue.global().async {
                 
                 self.semaphore.wait()
@@ -30,7 +32,7 @@ class ViewController: UIViewController {
                     guard let data = data else { return }
                     print(data)
                     self.nameLabel.text = data
-                    
+                    self.nameView.isHidden = false
                     self.semaphore.signal()
                 }
                 
@@ -39,7 +41,7 @@ class ViewController: UIViewController {
                     guard let data = data else { return }
                     print(data)
                     self.addressLabel.text = data
-                    
+                    self.addressView.isHidden = false
                     self.semaphore.signal()
                 }
                 
@@ -48,10 +50,16 @@ class ViewController: UIViewController {
                     guard let data = data else { return }
                     print(data)
                     self.headLabel.text = data
-                    
+                    self.headView.isHidden = false
                     self.semaphore.signal()
                 }
             }
+    }
+    
+    func hideView() {
+        nameView.isHidden = true
+        addressView.isHidden = true
+        headView.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {

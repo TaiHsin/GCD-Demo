@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideView()
+        
         dispatchGroup.enter()
         dataAPIClient.getData(apiUrl: .name) { (data, error) in
             
@@ -57,7 +59,20 @@ class ViewController: UIViewController {
             self.nameLabel.text = self.nameData
             self.addressLabel.text = self.addressData
             self.headLabel.text = self.headData
+            self.showView()
         }
+    }
+    
+    func hideView() {
+        nameView.isHidden = true
+        addressView.isHidden = true
+        headView.isHidden = true
+    }
+    
+    func showView() {
+        nameView.isHidden = false
+        addressView.isHidden = false
+        headView.isHidden = false
     }
     
     override func didReceiveMemoryWarning() {

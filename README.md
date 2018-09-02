@@ -86,6 +86,6 @@ In `getData()`, after get data the data will store to label.text and it's view w
 
 * Reference:      
 [A Quick Look at Semaphores in Swift](https://medium.com/swiftly-swift/a-quick-look-at-semaphores-6b7b85233ddb)   
-[iOS Swift GCD Chinese](https://juejin.im/post/5acaea17f265da239a601a01)    
+[iOS Swift GCD 開發教程](https://juejin.im/post/5acaea17f265da239a601a01)    
 [A deep dive into Grand Central Dispatch in Swift](https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift)
 

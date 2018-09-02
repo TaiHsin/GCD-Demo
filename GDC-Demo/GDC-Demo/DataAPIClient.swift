@@ -34,8 +34,8 @@ class DataAPIClient {
         
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
-            DispatchQueue.main.async {
-                
+//            DispatchQueue.main.async {
+            
                 guard error == nil else {
                     completion(nil, DataError.requestFailed)
                     return
@@ -45,12 +45,13 @@ class DataAPIClient {
                     completion(nil, DataError.requestFailed)
                     return
                 }
-                print(httpResponse)
-                
-                guard let data = String(data: data!, encoding: .utf8 ) else { return }
-                print(data)
+            
+                guard let data = String(data: data!, encoding: .utf8 ) else {
+                    return
+                }
+            
                 completion(data, nil)
-            }
+//            }
         })
         dataTask.resume()
     }

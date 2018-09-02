@@ -18,23 +18,48 @@ class ViewController: UIViewController {
     @IBOutlet weak var headLabel: UILabel!
     
     var dataAPIClient = DataAPIClient()
+    let semaphore = DispatchSemaphore(value: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for i in 0 ... 50 {
+
         dataAPIClient.getData(apiUrl: .name) { (data, error) in
+            
+            self.semaphore.wait()
             guard let data = data else { return }
-            self.nameLabel.text = data
+            
+            self.semaphore.signal()
+            DispatchQueue.main.async {
+                print(data)
+                self.nameLabel.text = data
+            }
         }
         
         dataAPIClient.getData(apiUrl: .address) { (data, error) in
+            self.semaphore.wait()
             guard let data = data else { return }
-            self.addressLabel.text = data
+            self.semaphore.signal()
+            
+            DispatchQueue.main.async {
+                print(data)
+                self.addressLabel.text = data
+            }
+            
         }
         
         dataAPIClient.getData(apiUrl: .head) { (data, error) in
+            self.semaphore.wait()
             guard let data = data else { return }
-            self.headLabel.text = data
+            
+            self.semaphore.signal()
+            DispatchQueue.main.async {
+                print(data)
+                self.headLabel.text = data
+            }
+        }
+            
         }
     }
     

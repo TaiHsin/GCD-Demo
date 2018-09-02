@@ -6,7 +6,6 @@ Grand Central Dispatch (GCD) group and semaphore practice
 In the branch I use dispatch group to wait all three API data finish and display view at the same time.
 
 First create instance of dispatch group.
-At the mean tiem we also decalare 
 
 ```
 let dispatchGroup = DispatchGroup()
@@ -20,7 +19,7 @@ dataAPIClient.getData(apiUrl: .name) { (data, error) in
     
     guard let data = data else { return }
     print(data)
-    self.nameData = data
+    self.nameLabel.text = data
     self.dispatchGroup.leave()
 }
     
@@ -29,7 +28,7 @@ dataAPIClient.getData(apiUrl: .address) { (data, error) in
     
     guard let data = data else { return }
     print(data)
-    self.addressData = data
+    self.addressLabel.text = data
     self.dispatchGroup.leave()
 }
     
@@ -38,27 +37,25 @@ dataAPIClient.getData(apiUrl: .head) { (data, error) in
     
     guard let data = data else { return }
     print(data)
-    self.headData = data
+    self.headLabel.text = data
     self.dispatchGroup.leave()
 }
 ```
+>   *Note: There are two ways to add task into groups. First one is add group with async argument `group:`. Second one is to use group enter and leave method to let group know how many tasks right now in group.*
 
-In `getData()` we store each data to each property that we decalare at the first (name, address, and head).
 
 
 When all the group task have already finish (which mean the group task count reaches zero) and got data, the notify method with closure will be called. 
 
 	
 	dispatchGroup.notify(queue: .main) {
-	    self.nameLabel.text = self.nameData
-	    self.addressLabel.text = self.addressData
-	    self.headLabel.text = self.headData
 	    self.showView()
 	}
 
-In notify closure we store each property data to each label and show the view to display on screen at the same time.
+In notify closure we simply just show all three view on screen.
 
-Reference: 	
-https://www.youtube.com/watch?v=lOI0aUkeuLw
-https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift	
-https://juejin.im/post/5acaea17f265da239a601a01
+--
+* Reference: 	
+[(Youtube) DispatchGroup: Waiting for Data | Swift 4, Xcode 9](https://www.youtube.com/watch?v=lOI0aUkeuLw)     
+[A deep dive into Grand Central Dispatch in Swift](https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift)	
+[iOS Swift GCD 開發教程](https://juejin.im/post/5acaea17f265da239a601a01)

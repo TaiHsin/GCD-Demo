@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             
             guard let data = data else { return }
             print(data)
-            self.nameData = data
+            self.nameLabel.text = data
             self.dispatchGroup.leave()
         }
         
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
             
             guard let data = data else { return }
             print(data)
-            self.addressData = data
+            self.addressLabel.text = data
             self.dispatchGroup.leave()
         }
         
@@ -51,14 +51,11 @@ class ViewController: UIViewController {
             
             guard let data = data else { return }
             print(data)
-            self.headData = data
+            self.headLabel.text = data
             self.dispatchGroup.leave()
         }
         
         dispatchGroup.notify(queue: .main) {
-            self.nameLabel.text = self.nameData
-            self.addressLabel.text = self.addressData
-            self.headLabel.text = self.headData
             self.showView()
         }
     }

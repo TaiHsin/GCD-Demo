@@ -53,11 +53,19 @@ class ViewController: UIViewController {
             self.dispatchGroup.leave()
         }
         
-        dispatchGroup.notify(queue: .main) {
-            self.nameLabel.text = self.nameData
-            self.addressLabel.text = self.addressData
-            self.headLabel.text = self.headData
-        }
+        dispatchGroup.wait()
+        print("update")
+        update()
+//        dispatchGroup.notify(queue: .main) {
+//            self.nameLabel.text = self.nameData
+//            self.addressLabel.text = self.addressData
+//            self.headLabel.text = self.headData
+//        }
+    }
+    func update() {
+        self.nameLabel.text = self.nameData
+        self.addressLabel.text = self.addressData
+        self.headLabel.text = self.headData
     }
     
     override func didReceiveMemoryWarning() {
